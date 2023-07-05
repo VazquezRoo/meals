@@ -30,16 +30,17 @@ exports.validMealOrder = catchAsync(async (req, res, next) => {
   const { mealId } = req.body;
 
   console.log(mealId);
+
   const meal = await Meal.findOne({
     where: {
       id: mealId,
       status: true,
     },
-    include: [
-      {
-        model: Restaurant,
-      },
-    ],
+    // include: [
+    //   {
+    //     model: Restaurant,
+    //   },
+    // ],
   });
 
   if (!meal) {

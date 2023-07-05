@@ -86,3 +86,17 @@ exports.createReviewValidation = [
     .withMessage('Rating must be Integer'),
   validFields,
 ];
+
+exports.createOrderValidation = [
+  body('quantity')
+    .notEmpty()
+    .withMessage('Quantity cannot be empty')
+    .isInt()
+    .withMessage('Quantity must be Integer'),
+  body('mealId')
+    .notEmpty()
+    .withMessage('MealId cannot be empty')
+    .isInt()
+    .withMessage('MealId must be Integer'),
+  validFields,
+];

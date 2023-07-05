@@ -7,12 +7,18 @@ const orderController = require('../controllers/order.controller');
 const authMiddleware = require('./../middlewares/authMiddleware');
 const orderMiddleware = require('./../middlewares/orderMiddleware');
 const mealMiddleware = require('./../middlewares/mealMiddleware');
+const validationMiddleware = require('./../middlewares/validationMiddlewares');
 
 const router = express.Router();
 
 router.use(authMiddleware.protect);
 
-router.post('/', mealMiddleware.validMealOrder, orderController.createOrder);
+router.post(
+  '/',
+  validationMiddleware.createOrderValidation,
+  mealMiddleware.validMealOrder,
+  orderController.createOrder
+);
 
 router.get('/me', orderController.findAllOrders);
 
