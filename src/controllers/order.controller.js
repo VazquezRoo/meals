@@ -80,10 +80,6 @@ exports.findAllMyOrders = catchAsync(async (req, res, next) => {
     ],
   });
 
-  if (orders.length === 0) {
-    orders = 'no orders added';
-  }
-
   res.status(200).json({
     status: 'success',
     results: orders.length,

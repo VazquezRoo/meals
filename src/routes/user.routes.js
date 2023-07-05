@@ -39,11 +39,7 @@ router
     userController.deleteUser
   );
 
-router.get(
-  '/orders',
-  orderMiddleware.validOrder,
-  orderController.findAllOrders
-);
+router.get('/orders', orderController.findAllOrders);
 
 router.get(
   '/orders/:id',
