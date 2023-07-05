@@ -8,7 +8,7 @@ exports.findAllOrders = catchAsync(async (req, res, next) => {
 
   const orders = await Order.findAll({
     where: {
-      status: true,
+      status: 'active',
       userId: sessionUser.id,
     },
     include: [
@@ -31,26 +31,7 @@ exports.findAllOrders = catchAsync(async (req, res, next) => {
 });
 
 exports.findOrder = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-  const { sessionUser } = req;
-
-  const order = await Order.findOne({
-    where: {
-      status: true,
-      id,
-      userId: sessionUser.id,
-    },
-    include: [
-      {
-        model: Meal,
-        include: [
-          {
-            model: Restaurant,
-          },
-        ],
-      },
-    ],
-  });
+  const { order } = req;
 
   res.status(200).json({
     status: 'success',
