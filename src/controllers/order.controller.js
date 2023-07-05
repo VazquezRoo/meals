@@ -44,8 +44,6 @@ exports.createOrder = catchAsync(async (req, res, next) => {
 
   const { meal, sessionUser } = req;
 
-  console.log(sessionUser);
-
   const order = await Order.create({
     quantity,
     mealId: meal.dataValues.id,

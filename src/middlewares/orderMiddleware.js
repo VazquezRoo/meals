@@ -1,4 +1,4 @@
-const Order = require('../models/usersModel');
+const Order = require('../models/ordersModel');
 const Meal = require('./../models/mealsModel');
 const AppError = require('../utils/appError');
 const Restaurant = require('./../models/restaurantsModel');
@@ -22,39 +22,10 @@ exports.validMeal = catchAsync(async (req, res, next) => {
   next();
 });
 
-exports.validOrder = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-
-  const order = await Order.findOne({
-    where: {
-      id,
-      status: 'active',
-    },
-  });
-
-  if (!order) {
-    return next(new AppError(`Order with id: ${id} not found`, 404));
-  }
-
-  req.order = order;
-  next();
-});
-
 exports.validOrderUser = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-  const { sessionUser } = req;
+  const { sessionUser, order } = req;
 
-  const order = await Order.findOne({
-    where: {
-      id,
-      status: 'active',
-    },
-  });
-
-  if (!order) {
-    return next(new AppError(`Order with id: ${id} not found`, 404));
-  }
-  if (order.userId !== sessionUser.id) {
+  if (order.dataValues.userId !== sessionUser.dataValues.id) {
     return next(
       new AppError('You do not have permission to perform this action!', 403)
     );
