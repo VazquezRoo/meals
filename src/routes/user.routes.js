@@ -8,6 +8,7 @@ const orderController = require('./../controllers/order.controller');
 const validationMiddleware = require('./../middlewares/validationMiddlewares');
 const userMiddleware = require('./../middlewares/userMiddleware');
 const authMiddleware = require('./../middlewares/authMiddleware');
+const orderMiddleware = require('./../middlewares/orderMiddleware');
 
 const router = express.Router();
 
@@ -38,8 +39,16 @@ router
     userController.deleteUser
   );
 
-router.get('/orders', orderController.findAllOrders);
+router.get(
+  '/orders',
+  orderMiddleware.validOrder,
+  orderController.findAllOrders
+);
 
-router.get('/orders/:id', orderController.findOrder);
+router.get(
+  '/orders/:id',
+  orderMiddleware.validOrder,
+  orderController.findOrder
+);
 
 module.exports = router;

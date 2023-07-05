@@ -1,6 +1,7 @@
 const Order = require('../models/usersModel');
 const Meal = require('./../models/mealsModel');
 const AppError = require('../utils/appError');
+const Restaurant = require('./../models/restaurantsModel');
 const catchAsync = require('../utils/catchAsync');
 
 exports.validMeal = catchAsync(async (req, res, next) => {
