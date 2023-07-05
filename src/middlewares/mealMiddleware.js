@@ -29,6 +29,7 @@ exports.validMeal = catchAsync(async (req, res, next) => {
 exports.validMealOrder = catchAsync(async (req, res, next) => {
   const { mealId } = req.body;
 
+  console.log(mealId);
   const meal = await Meal.findOne({
     where: {
       id: mealId,
@@ -42,7 +43,7 @@ exports.validMealOrder = catchAsync(async (req, res, next) => {
   });
 
   if (!meal) {
-    return next(new AppError(`Meal with id: ${id} not found`, 404));
+    return next(new AppError(`Meal with id: ${mealId} not found`, 404));
   }
 
   req.meal = meal;
